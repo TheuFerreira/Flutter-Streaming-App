@@ -18,8 +18,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,8 +32,6 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         NotificationButtonWidget(
-                          normalColor: const Color(0xFF484848),
-                          notificationColor: const Color(0xFF967BE3),
                           onTap: () {
                             // TODO: Open Notifications
                           },
@@ -59,10 +57,12 @@ class _MainPageState extends State<MainPage> {
                   VideoItemWidget(
                     image: Image.asset('assets/temp/01.jpg').image,
                     description: 'Temporada 2: Episódio 10',
+                    onTap: () {},
                   ),
                   VideoItemWidget(
                     image: Image.asset('assets/temp/01.jpg').image,
                     description: 'Temporada 2: Episódio 10',
+                    onTap: () {},
                   )
                 ],
               ),
@@ -72,14 +72,17 @@ class _MainPageState extends State<MainPage> {
                   PlaylistItemWidget(
                     image: Image.asset('assets/temp/02.jpg').image,
                     description: 'La Casa de Papel',
+                    onTap: () {},
                   ),
                   PlaylistItemWidget(
                     image: Image.asset('assets/temp/02.jpg').image,
                     description: 'La Casa de Papel',
+                    onTap: () {},
                   ),
                   PlaylistItemWidget(
                     image: Image.asset('assets/temp/02.jpg').image,
                     description: 'La Casa de Papel',
+                    onTap: () {},
                   ),
                 ],
               ),
@@ -89,14 +92,17 @@ class _MainPageState extends State<MainPage> {
                   PlaylistItemWidget(
                     image: Image.asset('assets/temp/02.jpg').image,
                     description: 'La Casa de Papel',
+                    onTap: () {},
                   ),
                   PlaylistItemWidget(
                     image: Image.asset('assets/temp/02.jpg').image,
                     description: 'La Casa de Papel',
+                    onTap: () {},
                   ),
                   PlaylistItemWidget(
                     image: Image.asset('assets/temp/02.jpg').image,
                     description: 'La Casa de Papel',
+                    onTap: () {},
                   ),
                 ],
               ),

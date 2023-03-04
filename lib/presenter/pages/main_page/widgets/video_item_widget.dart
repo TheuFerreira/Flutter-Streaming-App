@@ -4,10 +4,12 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 class VideoItemWidget extends StatelessWidget {
   final ImageProvider<Object> image;
   final String description;
+  final void Function() onTap;
   const VideoItemWidget({
     Key? key,
     required this.image,
     required this.description,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -20,9 +22,7 @@ class VideoItemWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
           child: InkWell(
-            onTap: () {
-              // TODO: Play Video
-            },
+            onTap: onTap,
             child: Container(
               width: width,
               height: height,
@@ -60,11 +60,7 @@ class VideoItemWidget extends StatelessWidget {
         ),
         Text(
           description,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 12,
-            color: Colors.white,
-          ),
+          style: Theme.of(context).textTheme.bodySmall,
         ),
       ],
     );

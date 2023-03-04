@@ -20,11 +20,7 @@ class PlayerListWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                fontSize: 12,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           SingleChildScrollView(

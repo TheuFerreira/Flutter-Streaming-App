@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 
 class NotificationButtonWidget extends StatelessWidget {
   final bool hasNotifications;
-  final Color normalColor;
-  final Color notificationColor;
   final void Function() onTap;
   const NotificationButtonWidget({
     Key? key,
     this.hasNotifications = false,
-    required this.normalColor,
-    required this.notificationColor,
     required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final selectedColor = Theme.of(context).colorScheme.primary;
+    final normalColor = Theme.of(context).colorScheme.secondary;
     return SizedBox(
       height: 50,
       width: 50,
@@ -28,7 +26,7 @@ class NotificationButtonWidget extends StatelessWidget {
               height: 40,
               width: 40,
               decoration: BoxDecoration(
-                color: hasNotifications ? notificationColor : normalColor,
+                color: hasNotifications ? selectedColor : normalColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(

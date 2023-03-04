@@ -15,7 +15,7 @@ class BottomNavigationItemWidget extends StatelessWidget {
       onTap: onTap,
       child: Icon(
         icon,
-        color: const Color(0xFF967BE3),
+        color: Theme.of(context).colorScheme.primary,
         size: 28,
       ),
     );
