@@ -14,6 +14,7 @@ class VideoItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const width = 213.0;
     const height = 113.0;
+    final borderRadius = BorderRadius.circular(12);
     return Column(
       children: [
         Padding(
@@ -26,14 +27,14 @@ class VideoItemWidget extends StatelessWidget {
               width: width,
               height: height,
               decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(12),
+                color: Colors.transparent,
+                borderRadius: borderRadius,
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black,
                     offset: Offset(0, 0),
-                    blurRadius: 8,
-                    spreadRadius: 2,
+                    blurRadius: 6,
+                    spreadRadius: 1,
                   ),
                 ],
                 image: DecorationImage(
@@ -41,10 +42,18 @@ class VideoItemWidget extends StatelessWidget {
                   image: image,
                 ),
               ),
-              child: const Icon(
-                FeatherIcons.play,
-                size: 40,
-                color: Colors.white,
+              child: Container(
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(.6),
+                  borderRadius: borderRadius,
+                ),
+                child: const Icon(
+                  FeatherIcons.play,
+                  size: 32,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
