@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:streaming_app/presenter/pages/main_page/widgets/bottom_navigation_item_widget.dart';
 import 'package:streaming_app/presenter/pages/main_page/widgets/notification_button_widget.dart';
 import 'package:streaming_app/presenter/pages/main_page/widgets/player_list_widget.dart';
 import 'package:streaming_app/presenter/pages/main_page/widgets/playlist_item_widget.dart';
@@ -100,6 +102,30 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 70,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            BottomNavigationItemWidget(
+              icon: FeatherIcons.home,
+              onTap: () {},
+            ),
+            BottomNavigationItemWidget(
+              icon: FeatherIcons.search,
+              onTap: () {},
+            ),
+            BottomNavigationItemWidget(
+              icon: FeatherIcons.heart,
+              onTap: () {},
+            ),
+            BottomNavigationItemWidget(
+              icon: Icons.account_circle_outlined,
+              onTap: () {},
+            ),
+          ],
         ),
       ),
     );
