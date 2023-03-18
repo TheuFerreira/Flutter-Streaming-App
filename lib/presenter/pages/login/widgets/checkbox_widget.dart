@@ -22,6 +22,7 @@ class _CheckboxWidgetState extends State<CheckboxWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => widget.onChanged(!widget.active),
+      borderRadius: BorderRadius.circular(5),
       child: AnimatedContainer(
         height: 20,
         width: 20,
