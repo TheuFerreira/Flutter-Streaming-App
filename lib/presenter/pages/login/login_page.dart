@@ -1,4 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:streaming_app/presenter/pages/login/login_controller.dart';
 import 'package:streaming_app/presenter/pages/login/widgets/button_gradient_widget.dart';
 import 'package:streaming_app/presenter/pages/login/widgets/checkbox_text_widget.dart';
 import 'package:streaming_app/presenter/pages/login/widgets/text_form_field_widget.dart';
@@ -11,6 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = LoginController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,9 +100,31 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                          CheckboxTextWidget(
-                            text: 'Lembrar de mim',
-                            onChanged: (_) {},
+                          RichText(
+                            textAlign: TextAlign.end,
+                            text: TextSpan(
+                              text: 'Esqueceu sua senha?',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap =
+                                    () => controller.resetPassword(context),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                decoration: TextDecoration.underline,
+                                color: Color(0xFFB49AFF),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Observer(
+                            builder: (context) {
+                              final rememberMe = controller.rememberMe;
+                              return CheckboxTextWidget(
+                                text: 'Lembrar de mim',
+                                active: rememberMe,
+                                onChanged: controller.setRememberMe,
+                              );
+                            },
                           ),
                           ButtonGradientWidget(
                             gradient: const LinearGradient(
@@ -108,31 +135,30 @@ class _LoginPageState extends State<LoginPage> {
                                 Color(0xFF684DB5),
                               ],
                             ),
-                            onPressed: () {},
+                            onPressed: () => controller.signIn(context),
                             child: const Text('Entrar'),
                           ),
                           const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Não possui uma conta? ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w200,
-                                  fontSize: 12,
-                                ),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: 'Não possui uma conta? ',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w200,
+                                fontSize: 12,
                               ),
-                              InkWell(
-                                onTap: () {},
-                                child: const Text(
-                                  'Cadastre-se',
-                                  style: TextStyle(
+                              children: [
+                                TextSpan(
+                                  text: 'Cadastre-se',
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 12,
                                   ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {},
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
