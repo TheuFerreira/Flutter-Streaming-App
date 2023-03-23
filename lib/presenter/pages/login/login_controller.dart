@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/info_dialog.dart';
+import 'package:streaming_app/presenter/pages/register/register_page.dart';
 
 part 'login_controller.g.dart';
 
@@ -69,5 +70,9 @@ abstract class LoginControllerBase with Store {
   }
 
   @action
-  void register() {}
+  void register(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (builder) => const RegisterPage()),
+    );
+  }
 }

@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:streaming_app/presenter/pages/login/login_controller.dart';
-import 'package:streaming_app/presenter/pages/login/widgets/button_gradient_widget.dart';
-import 'package:streaming_app/presenter/pages/login/widgets/checkbox_text_widget.dart';
-import 'package:streaming_app/presenter/pages/login/widgets/text_form_field_widget.dart';
+import 'package:streaming_app/presenter/widgets/button_gradient_widget.dart';
+import 'package:streaming_app/presenter/widgets/checkbox_text_widget.dart';
+import 'package:streaming_app/presenter/widgets/text_form_field_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -155,7 +155,8 @@ class _LoginPageState extends State<LoginPage> {
                                     fontSize: 12,
                                   ),
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = () {},
+                                    ..onTap =
+                                        () => controller.register(context),
                                 ),
                               ],
                             ),

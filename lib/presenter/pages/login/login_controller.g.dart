@@ -62,11 +62,11 @@ mixin _$LoginController on LoginControllerBase, Store {
   }
 
   @override
-  void register() {
+  void register(BuildContext context) {
     final _$actionInfo = _$LoginControllerBaseActionController.startAction(
         name: 'LoginControllerBase.register');
     try {
-      return super.register();
+      return super.register(context);
     } finally {
       _$LoginControllerBaseActionController.endAction(_$actionInfo);
     }
