@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streaming_app/presenter/pages/login/widgets/checkbox_widget.dart';
+import 'package:streaming_app/presenter/widgets/checkbox_widget.dart';
 
 class CheckboxTextWidget extends StatelessWidget {
   final bool active;

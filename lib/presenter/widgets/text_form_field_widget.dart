@@ -4,12 +4,14 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final String label;
   final bool obscureText;
+  final TextInputType? keyboardType;
   final String? Function(String?) validator;
   const TextFormFieldWidget({
     Key? key,
     this.controller,
     required this.label,
     this.obscureText = false,
+    this.keyboardType,
     required this.validator,
   }) : super(key: key);
 
@@ -22,6 +24,7 @@ class TextFormFieldWidget extends StatelessWidget {
         obscureText: obscureText,
         validator: validator,
         cursorColor: const Color(0xFFB6B6B6),
+        keyboardType: keyboardType,
         style: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
