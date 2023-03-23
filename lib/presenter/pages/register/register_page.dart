@@ -21,37 +21,19 @@ class _RegisterPageState extends State<RegisterPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 50),
-              const Text(
+              Text(
                 'Curta a viagem :)',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
-                  color: Color(0xFFF6F6F6),
-                ),
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               Text(
                 'SpaceFilms',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 40,
-                  height: 1,
-                  foreground: Paint()
-                    ..shader = const LinearGradient(
-                      stops: [0, 0.4, 0.8],
-                      colors: [
-                        Color(0xff564095),
-                        Color(0xff564095),
-                        Color(0xff684DB5),
-                      ],
-                    ).createShader(
-                      const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-                    ),
-                ),
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(height: 24),
               const Text(
                 'Criar conta:',
                 style: TextStyle(
+                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
                   fontSize: 22,
                   color: Colors.white,

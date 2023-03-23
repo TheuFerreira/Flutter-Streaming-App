@@ -47,31 +47,13 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const SizedBox(height: 50),
-                        const Text(
+                        Text(
                           'Curta a viagem :)',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                          ),
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                         Text(
                           'SpaceFilms',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 40,
-                            height: 1,
-                            foreground: Paint()
-                              ..shader = const LinearGradient(
-                                stops: [0, 0.4, 0.8],
-                                colors: [
-                                  Color(0xff564095),
-                                  Color(0xff564095),
-                                  Color(0xff684DB5),
-                                ],
-                              ).createShader(
-                                const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-                              ),
-                          ),
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ],
                     ),
@@ -107,12 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                               recognizer: TapGestureRecognizer()
                                 ..onTap =
                                     () => controller.resetPassword(context),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                decoration: TextDecoration.underline,
-                                color: Color(0xFFB49AFF),
-                              ),
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -144,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                             text: TextSpan(
                               text: 'Não possui uma conta? ',
                               style: const TextStyle(
+                                fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w200,
                                 fontSize: 12,
                               ),
@@ -151,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                 TextSpan(
                                   text: 'Cadastre-se',
                                   style: const TextStyle(
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w700,
                                     fontSize: 12,
                                   ),

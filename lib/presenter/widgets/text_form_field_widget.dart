@@ -26,6 +26,7 @@ class TextFormFieldWidget extends StatelessWidget {
         cursorColor: const Color(0xFFB6B6B6),
         keyboardType: keyboardType,
         style: const TextStyle(
+          fontFamily: 'Poppins',
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
@@ -36,16 +37,8 @@ class TextFormFieldWidget extends StatelessWidget {
             vertical: 18,
           ),
           labelText: label,
-          labelStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-          ),
-          floatingLabelStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-          ),
+          labelStyle: Theme.of(context).textTheme.labelLarge,
+          floatingLabelStyle: Theme.of(context).textTheme.labelLarge,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: 'Digite aqui',
           hintStyle: const TextStyle(

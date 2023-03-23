@@ -31,6 +31,7 @@ class CheckboxTextWidget extends StatelessWidget {
               child: Text(
                 text,
                 style: const TextStyle(
+                  fontFamily: 'Poppins',
                   color: Colors.white,
                   fontWeight: FontWeight.w300,
                   fontSize: 12,

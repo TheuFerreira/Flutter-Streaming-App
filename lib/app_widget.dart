@@ -16,26 +16,85 @@ class AppWidget extends StatelessWidget {
           primary: const Color(0xFF967BE3),
           secondary: const Color(0xFF484848),
         ),
-        textTheme: const TextTheme(
-          titleMedium: TextStyle(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 20,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        textTheme: TextTheme(
+          displayLarge: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w800,
+            fontSize: 40,
+            height: 1,
+            foreground: Paint()
+              ..shader = const LinearGradient(
+                stops: [0, 0.4, 0.8],
+                colors: [
+                  Color(0xff564095),
+                  Color(0xff564095),
+                  Color(0xff684DB5),
+                ],
+              ).createShader(
+                const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+              ),
+          ),
+          displayMedium: const TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            color: Color(0xFFF6F6F6),
+          ),
+          titleMedium: const TextStyle(
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w600,
             color: Colors.white,
             fontSize: 12,
           ),
-          titleLarge: TextStyle(
+          titleLarge: const TextStyle(
+            fontFamily: 'Poppins',
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
-          bodySmall: TextStyle(
+          bodySmall: const TextStyle(
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
             fontSize: 12,
             color: Colors.white,
           ),
-          bodyMedium: TextStyle(
+          bodyMedium: const TextStyle(
+            fontFamily: 'Poppins',
             color: Colors.white,
             fontWeight: FontWeight.w600,
             fontSize: 12,
+          ),
+          labelLarge: const TextStyle(
+            fontFamily: 'Poppins',
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+          ),
+          labelSmall: const TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w400,
+            fontSize: 10,
+            letterSpacing: 1,
+            decoration: TextDecoration.underline,
+            color: Color(0xFFB49AFF),
           ),
         ),
       ),
