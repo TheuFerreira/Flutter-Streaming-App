@@ -27,7 +27,7 @@ class _CheckboxWidgetState extends State<CheckboxWidget> {
         height: 20,
         width: 20,
         duration: const Duration(milliseconds: 250),
-        curve: Curves.bounceIn,
+        curve: Curves.easeIn,
         decoration: BoxDecoration(
           color: widget.active ? widget.activeColor : widget.normalColor,
           borderRadius: BorderRadius.circular(5),
