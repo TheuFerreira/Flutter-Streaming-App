@@ -20,6 +20,7 @@ class AppWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
+            elevation: 0,
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 20,

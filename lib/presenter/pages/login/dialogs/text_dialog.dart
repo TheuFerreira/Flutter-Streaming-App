@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:streaming_app/presenter/widgets/text_form_field_widget.dart';
 
-class InfoDialog extends StatelessWidget {
+class TextDialog extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String description;
-  final String buttonText;
-  const InfoDialog({
+  final String cancelButtonText;
+  final String okButtonText;
+  final void Function() onOkButton;
+  const TextDialog({
     Key? key,
     required this.icon,
     this.iconColor = Colors.white,
     required this.description,
-    required this.buttonText,
+    required this.cancelButtonText,
+    required this.okButtonText,
+    required this.onOkButton,
   }) : super(key: key);
 
   @override
@@ -52,29 +57,68 @@ class InfoDialog extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                const SizedBox(height: 12),
+                TextFormFieldWidget(
+                  label: 'E-mail',
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (_) {},
+                ),
               ],
             ),
           ),
           Row(
             children: [
               Expanded(
-                child: ElevatedButton(
+                child: TextButton(
                   onPressed: Navigator.of(context).pop,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF684DB5),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.transparent,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.all(20),
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(0),
                     ),
                     textStyle: const TextStyle(
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),
                   ),
                   child: Text(
-                    buttonText,
+                    cancelButtonText,
                     style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    onOkButton();
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF684DB5),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.all(20),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    textStyle: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  child: Text(
+                    okButtonText,
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),

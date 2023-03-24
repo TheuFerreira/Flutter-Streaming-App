@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/info_dialog.dart';
+import 'package:streaming_app/presenter/pages/login/dialogs/text_dialog.dart';
 import 'package:streaming_app/presenter/pages/register/register_page.dart';
 
 part 'login_controller.g.dart';
@@ -12,8 +13,22 @@ abstract class LoginControllerBase with Store {
   bool rememberMe = false;
 
   @action
-  void resetPassword(BuildContext context) {
-    showDialog(
+  void resetPassword(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (_) {
+        return TextDialog(
+          icon: Icons.email,
+          description:
+              'Confirme seu e-mail para o\nenvio da redefinição de senha:',
+          cancelButtonText: 'Sair',
+          okButtonText: 'Enviar',
+          onOkButton: () {},
+        );
+      },
+    );
+
+    await showDialog(
       context: context,
       builder: (builder) {
         return const InfoDialog(
@@ -21,6 +36,19 @@ abstract class LoginControllerBase with Store {
           description:
               'Um link para redefinição\nde senha foi enviado para\nseu e-mail!',
           buttonText: 'Ok',
+        );
+      },
+    );
+
+    await showDialog(
+      context: context,
+      builder: (_) {
+        return TextDialog(
+          icon: Icons.email,
+          description: 'E-mail incorreto, por favor\ndigite novamente:',
+          cancelButtonText: 'Sair',
+          okButtonText: 'Enviar',
+          onOkButton: () {},
         );
       },
     );
