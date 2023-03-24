@@ -12,8 +12,11 @@ abstract class LoginControllerBase with Store {
   @observable
   bool rememberMe = false;
 
+  @observable
+  bool obscureText = true;
+
   @action
-  void resetPassword(BuildContext context) async {
+  Future<void> resetPassword(BuildContext context) async {
     await showDialog(
       context: context,
       builder: (_) {
@@ -52,6 +55,11 @@ abstract class LoginControllerBase with Store {
         );
       },
     );
+  }
+
+  @action
+  void onChangeObscureText(bool value) {
+    obscureText = !value;
   }
 
   @action

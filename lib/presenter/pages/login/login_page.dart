@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:streaming_app/presenter/pages/login/login_controller.dart';
 import 'package:streaming_app/presenter/widgets/button_gradient_widget.dart';
 import 'package:streaming_app/presenter/widgets/checkbox_text_widget.dart';
+import 'package:streaming_app/presenter/widgets/password_form_field_widget.dart';
 import 'package:streaming_app/presenter/widgets/text_form_field_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -74,10 +75,14 @@ class _LoginPageState extends State<LoginPage> {
                                   validator: (s) => s,
                                 ),
                                 const SizedBox(height: 24),
-                                TextFormFieldWidget(
-                                  label: 'Senha',
-                                  obscureText: true,
-                                  validator: (s) => s,
+                                Observer(
+                                  builder: (context) => PasswordFormFieldWidget(
+                                    label: 'Senha',
+                                    obscureText: controller.obscureText,
+                                    validator: (_) {},
+                                    onChangeObscureText:
+                                        controller.onChangeObscureText,
+                                  ),
                                 ),
                               ],
                             ),

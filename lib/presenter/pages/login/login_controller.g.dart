@@ -25,15 +25,39 @@ mixin _$LoginController on LoginControllerBase, Store {
     });
   }
 
+  late final _$obscureTextAtom =
+      Atom(name: 'LoginControllerBase.obscureText', context: context);
+
+  @override
+  bool get obscureText {
+    _$obscureTextAtom.reportRead();
+    return super.obscureText;
+  }
+
+  @override
+  set obscureText(bool value) {
+    _$obscureTextAtom.reportWrite(value, super.obscureText, () {
+      super.obscureText = value;
+    });
+  }
+
+  late final _$resetPasswordAsyncAction =
+      AsyncAction('LoginControllerBase.resetPassword', context: context);
+
+  @override
+  Future<void> resetPassword(BuildContext context) {
+    return _$resetPasswordAsyncAction.run(() => super.resetPassword(context));
+  }
+
   late final _$LoginControllerBaseActionController =
       ActionController(name: 'LoginControllerBase', context: context);
 
   @override
-  void resetPassword(BuildContext context) {
+  void onChangeObscureText(bool value) {
     final _$actionInfo = _$LoginControllerBaseActionController.startAction(
-        name: 'LoginControllerBase.resetPassword');
+        name: 'LoginControllerBase.onChangeObscureText');
     try {
-      return super.resetPassword(context);
+      return super.onChangeObscureText(value);
     } finally {
       _$LoginControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -75,7 +99,8 @@ mixin _$LoginController on LoginControllerBase, Store {
   @override
   String toString() {
     return '''
-rememberMe: ${rememberMe}
+rememberMe: ${rememberMe},
+obscureText: ${obscureText}
     ''';
   }
 }

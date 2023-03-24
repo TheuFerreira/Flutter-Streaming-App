@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streaming_app/presenter/widgets/button_gradient_widget.dart';
 import 'package:streaming_app/presenter/widgets/checkbox_text_widget.dart';
+import 'package:streaming_app/presenter/widgets/password_form_field_widget.dart';
 import 'package:streaming_app/presenter/widgets/text_form_field_widget.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -45,16 +46,18 @@ class _RegisterPageState extends State<RegisterPage> {
                 validator: (_) {},
               ),
               const SizedBox(height: 16),
-              TextFormFieldWidget(
+              PasswordFormFieldWidget(
                 label: 'Senha',
                 obscureText: true,
                 validator: (_) {},
+                onChangeObscureText: (_) {},
               ),
               const SizedBox(height: 16),
-              TextFormFieldWidget(
+              PasswordFormFieldWidget(
                 label: 'Repita sua senha',
                 obscureText: true,
                 validator: (_) {},
+                onChangeObscureText: (_) {},
               ),
               const SizedBox(height: 16),
               TextFormFieldWidget(
