@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:streaming_app/presenter/pages/register/register_controller.dart';
 import 'package:streaming_app/presenter/widgets/button_gradient_widget.dart';
 import 'package:streaming_app/presenter/widgets/checkbox_text_widget.dart';
 import 'package:streaming_app/presenter/widgets/password_form_field_widget.dart';
@@ -12,6 +14,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final controller = RegisterController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +23,17 @@ class _RegisterPageState extends State<RegisterPage> {
         padding: const EdgeInsets.all(16),
         child: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 8),
+              InkWell(
+                onTap: () => controller.login(context),
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 8),
               Text(
                 'Curta a viagem :)',
                 style: Theme.of(context).textTheme.displayMedium,
@@ -65,10 +77,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (_) {},
               ),
-              CheckboxTextWidget(
-                text: 'Lembrar de mim',
-                onChanged: (_) {},
-              ),
+              Observer(builder: (context) {
+                return CheckboxTextWidget(
+                  text: 'Lembrar de mim',
+                  active: controller.rememberMe,
+                  onChanged: controller.setRememberMe,
+                );
+              }),
               const SizedBox(height: 40),
               ButtonGradientWidget(
                 gradient: const LinearGradient(

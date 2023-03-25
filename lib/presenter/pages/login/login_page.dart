@@ -75,15 +75,15 @@ class _LoginPageState extends State<LoginPage> {
                                   validator: (s) => s,
                                 ),
                                 const SizedBox(height: 24),
-                                Observer(
-                                  builder: (context) => PasswordFormFieldWidget(
+                                Observer(builder: (context) {
+                                  return PasswordFormFieldWidget(
                                     label: 'Senha',
                                     obscureText: controller.obscureText,
                                     validator: (_) {},
                                     onChangeObscureText:
                                         controller.onChangeObscureText,
-                                  ),
-                                ),
+                                  );
+                                }),
                               ],
                             ),
                           ),
@@ -98,16 +98,14 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           const SizedBox(width: 16),
-                          Observer(
-                            builder: (context) {
-                              final rememberMe = controller.rememberMe;
-                              return CheckboxTextWidget(
-                                text: 'Lembrar de mim',
-                                active: rememberMe,
-                                onChanged: controller.setRememberMe,
-                              );
-                            },
-                          ),
+                          Observer(builder: (context) {
+                            final rememberMe = controller.rememberMe;
+                            return CheckboxTextWidget(
+                              text: 'Lembrar de mim',
+                              active: rememberMe,
+                              onChanged: controller.setRememberMe,
+                            );
+                          }),
                           ButtonGradientWidget(
                             gradient: const LinearGradient(
                               stops: [0, 0.5, 0.9],
