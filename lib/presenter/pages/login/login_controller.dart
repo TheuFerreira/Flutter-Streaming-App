@@ -9,6 +9,8 @@ part 'login_controller.g.dart';
 class LoginController = LoginControllerBase with _$LoginController;
 
 abstract class LoginControllerBase with Store {
+  final formKey = GlobalKey<FormState>();
+
   @observable
   bool rememberMe = false;
 
@@ -69,6 +71,11 @@ abstract class LoginControllerBase with Store {
 
   @action
   void signIn(BuildContext context) {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+
     showDialog(
       context: context,
       builder: (builder) {

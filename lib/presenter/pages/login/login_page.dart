@@ -6,6 +6,7 @@ import 'package:streaming_app/presenter/widgets/button_gradient_widget.dart';
 import 'package:streaming_app/presenter/widgets/checkbox_text_widget.dart';
 import 'package:streaming_app/presenter/widgets/password_form_field_widget.dart';
 import 'package:streaming_app/presenter/widgets/text_form_field_widget.dart';
+import 'package:validatorless/validatorless.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -67,19 +68,28 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Form(
+                            key: controller.formKey,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 TextFormFieldWidget(
                                   label: 'Usuário',
-                                  validator: (s) => s,
+                                  validator: Validatorless.multiple([
+                                    Validatorless.required(
+                                        'Campo não preenchido'),
+                                  ]),
                                 ),
                                 const SizedBox(height: 24),
                                 Observer(builder: (context) {
                                   return PasswordFormFieldWidget(
                                     label: 'Senha',
                                     obscureText: controller.obscureText,
-                                    validator: (_) {},
+                                    validator: Validatorless.multiple([
+                                      Validatorless.required(
+                                          'Campo não preenchido'),
+                                    ]),
                                     onChangeObscureText:
                                         controller.onChangeObscureText,
                                   );
