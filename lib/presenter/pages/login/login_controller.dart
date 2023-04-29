@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:streaming_app/domain/login/cases/sign_in_case.dart';
+import 'package:streaming_app/domain/login/errors/login_errors.dart';
+import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
+import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/info_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/text_dialog.dart';
+import 'package:streaming_app/presenter/pages/main_page/main_page.dart';
 import 'package:streaming_app/presenter/pages/register/register_page.dart';
 
 part 'login_controller.g.dart';
@@ -11,11 +16,16 @@ class LoginController = LoginControllerBase with _$LoginController;
 abstract class LoginControllerBase with Store {
   final formKey = GlobalKey<FormState>();
 
+  final userController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @observable
   bool rememberMe = false;
 
   @observable
   bool obscureText = true;
+
+  final _signInCase = SignInCase();
 
   @action
   Future<void> resetPassword(BuildContext context) async {
@@ -76,6 +86,39 @@ abstract class LoginControllerBase with Store {
       return;
     }
 
+    LoadingDialog.show(context);
+
+    final request = SignInRequest(
+      user: userController.text,
+      password: userController.text,
+    );
+
+    _signInCase(request)
+        .then((value) => _signInSuccess(context, value))
+        .catchError(
+          (err) => _emailNotRegisteredError(context, err),
+          test: (err) => err is LoginEmailNotRegisteredException,
+        )
+        .catchError(
+          (err) => _invalidLoginError(context, err),
+          test: (err) => err is LoginException,
+        )
+        .catchError(
+          (err) => _unknownError(context, err),
+        );
+  }
+
+  _signInSuccess(BuildContext context, dynamic value) {
+    LoadingDialog.close(context);
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (builder) => const MainPage()),
+    );
+  }
+
+  _emailNotRegisteredError(BuildContext context, dynamic err) {
+    LoadingDialog.close(context);
+
     showDialog(
       context: context,
       builder: (builder) {
@@ -86,18 +129,10 @@ abstract class LoginControllerBase with Store {
         );
       },
     );
+  }
 
-    showDialog(
-      context: context,
-      builder: (builder) {
-        return const InfoDialog(
-          icon: Icons.error,
-          iconColor: Colors.red,
-          description: 'Ocorreu algum erro interno,\ntente novamente!',
-          buttonText: 'Tentar novamente',
-        );
-      },
-    );
+  _invalidLoginError(BuildContext context, dynamic err) {
+    LoadingDialog.close(context);
 
     showDialog(
       context: context,
@@ -107,6 +142,22 @@ abstract class LoginControllerBase with Store {
           iconColor: Colors.yellow,
           description: 'Usuário ou senha\nincorretos!',
           buttonText: 'Ok',
+        );
+      },
+    );
+  }
+
+  _unknownError(BuildContext context, dynamic err) {
+    LoadingDialog.close(context);
+
+    showDialog(
+      context: context,
+      builder: (builder) {
+        return const InfoDialog(
+          icon: Icons.error,
+          iconColor: Colors.red,
+          description: 'Ocorreu algum erro interno,\ntente novamente!',
+          buttonText: 'Tentar novamente',
         );
       },
     );

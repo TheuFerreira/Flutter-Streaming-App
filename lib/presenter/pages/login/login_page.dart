@@ -75,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 TextFormFieldWidget(
+                                  controller: controller.userController,
                                   label: 'Usuário',
                                   validator: Validatorless.multiple([
                                     Validatorless.required(
@@ -84,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                                 const SizedBox(height: 24),
                                 Observer(builder: (context) {
                                   return PasswordFormFieldWidget(
+                                    controller: controller.passwordController,
                                     label: 'Senha',
                                     obscureText: controller.obscureText,
                                     validator: Validatorless.multiple([
