@@ -11,6 +11,7 @@ class PasswordFormFieldWidget extends FormFieldWidget {
     required super.validator,
     required super.obscureText,
     required this.onChangeObscureText,
+    super.onChanged,
   });
 
   @override
