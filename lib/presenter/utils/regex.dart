@@ -1,0 +1,1 @@
+var regSpecialCharacter = RegExp('[@#_.!%\$]');
