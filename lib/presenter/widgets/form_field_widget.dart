@@ -6,6 +6,7 @@ abstract class FormFieldWidget extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final String? Function(String?) validator;
+  final void Function(String)? onChanged;
   const FormFieldWidget({
     Key? key,
     this.controller,
@@ -13,6 +14,7 @@ abstract class FormFieldWidget extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType,
     required this.validator,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ abstract class FormFieldWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
+        onChanged: onChanged,
         controller: controller,
         obscureText: obscureText,
         validator: validator,
@@ -36,6 +39,9 @@ abstract class FormFieldWidget extends StatelessWidget {
             horizontal: 24,
             vertical: 18,
           ),
+          errorStyle: const TextStyle(
+            color: Color(0xFFFF6262),
+          ),
           suffixIcon: suffixIcon(),
           labelText: label,
           labelStyle: Theme.of(context).textTheme.labelLarge,
@@ -49,6 +55,8 @@ abstract class FormFieldWidget extends StatelessWidget {
           ),
           enabledBorder: _border(),
           focusedBorder: _border(),
+          errorBorder: _errorBorder(),
+          border: _border(),
         ),
       ),
     );
@@ -59,6 +67,15 @@ abstract class FormFieldWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       borderSide: const BorderSide(
         color: Color(0xFFB6B6B6),
+      ),
+    );
+  }
+
+  OutlineInputBorder _errorBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: const BorderSide(
+        color: Color(0xFFFF6262),
       ),
     );
   }
