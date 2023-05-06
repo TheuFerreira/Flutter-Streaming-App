@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:streaming_app/presenter/pages/login/login_page.dart';
 
 class AppWidget extends StatelessWidget {
@@ -8,6 +10,15 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Space Films',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('pt', 'BR'),
+      ],
       themeMode: ThemeMode.dark,
       theme: ThemeData(
         fontFamily: 'Poppins',
@@ -99,7 +110,7 @@ class AppWidget extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginPage(),
+      home: I18n(child: const LoginPage()),
     );
   }
 }
