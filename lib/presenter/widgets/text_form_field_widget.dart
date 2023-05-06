@@ -6,6 +6,7 @@ class TextFormFieldWidget extends FormFieldWidget {
     super.key,
     super.controller,
     required super.label,
+    super.hintText,
     super.keyboardType,
     required super.validator,
   }) : super(obscureText: false);

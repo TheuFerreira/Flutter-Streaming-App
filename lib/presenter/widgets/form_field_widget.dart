@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract class FormFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final String label;
+  final String hintText;
   final bool obscureText;
   final TextInputType? keyboardType;
   final String? Function(String?) validator;
@@ -11,6 +12,7 @@ abstract class FormFieldWidget extends StatelessWidget {
     Key? key,
     this.controller,
     required this.label,
+    this.hintText = 'Digite aqui',
     this.obscureText = false,
     this.keyboardType,
     required this.validator,
@@ -47,7 +49,7 @@ abstract class FormFieldWidget extends StatelessWidget {
           labelStyle: Theme.of(context).textTheme.labelLarge,
           floatingLabelStyle: Theme.of(context).textTheme.labelLarge,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintText: 'Digite aqui',
+          hintText: hintText,
           hintStyle: const TextStyle(
             color: Color(0xFFA8A8A8),
             fontSize: 14,

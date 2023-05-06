@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streaming_app/presenter/pages/login/dialogs/text_dialog.i18n.dart';
 import 'package:streaming_app/presenter/widgets/text_form_field_widget.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -27,6 +28,7 @@ class TextDialog extends StatefulWidget {
 
 class _TextDialogState extends State<TextDialog> {
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -72,11 +74,12 @@ class _TextDialogState extends State<TextDialog> {
                   key: formKey,
                   child: TextFormFieldWidget(
                     controller: widget.controller,
-                    label: 'E-mail',
+                    label: email.i18n,
+                    hintText: typeHere.i18n,
                     keyboardType: TextInputType.emailAddress,
                     validator: Validatorless.multiple([
-                      Validatorless.required('Campo não preenchido'),
-                      Validatorless.email('E-mail inválido'),
+                      Validatorless.required(fieldRequired.i18n),
+                      Validatorless.email(emailInvalid.i18n),
                     ]),
                   ),
                 ),
