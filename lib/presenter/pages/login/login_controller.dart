@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:streaming_app/domain/login/cases/reset_password_case.dart';
 import 'package:streaming_app/domain/login/cases/sign_in_case.dart';
 import 'package:streaming_app/domain/login/errors/login_errors.dart';
 import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
@@ -18,6 +19,7 @@ abstract class LoginControllerBase with Store {
 
   final userController = TextEditingController();
   final passwordController = TextEditingController();
+  final emailController = TextEditingController();
 
   @observable
   bool rememberMe = false;
@@ -26,24 +28,38 @@ abstract class LoginControllerBase with Store {
   bool obscureText = true;
 
   final _signInCase = SignInCase();
+  final _resetPasswordCase = ResetPasswordCase();
 
   @action
-  Future<void> resetPassword(BuildContext context) async {
-    await showDialog(
+  void resetPassword(BuildContext context) {
+    showDialog(
       context: context,
       builder: (_) {
         return TextDialog(
+          controller: emailController,
           icon: Icons.email,
           description:
               'Confirme seu e-mail para o\nenvio da redefinição de senha:',
           cancelButtonText: 'Sair',
           okButtonText: 'Enviar',
-          onOkButton: () {},
+          onOkButton: () => _sendEmailResetPassword(context),
         );
       },
     );
+  }
 
-    await showDialog(
+  _sendEmailResetPassword(BuildContext context) {
+    final email = emailController.text;
+    _resetPasswordCase(email)
+        .then((value) => _emailSent(context))
+        .catchError((onError) => _emailNotFound(context))
+        .whenComplete(() {
+      emailController.text = '';
+    });
+  }
+
+  _emailSent(BuildContext context) {
+    showDialog(
       context: context,
       builder: (builder) {
         return const InfoDialog(
@@ -54,16 +70,16 @@ abstract class LoginControllerBase with Store {
         );
       },
     );
+  }
 
-    await showDialog(
+  _emailNotFound(BuildContext context) {
+    showDialog(
       context: context,
       builder: (_) {
-        return TextDialog(
+        return const InfoDialog(
           icon: Icons.email,
           description: 'E-mail incorreto, por favor\ndigite novamente:',
-          cancelButtonText: 'Sair',
-          okButtonText: 'Enviar',
-          onOkButton: () {},
+          buttonText: 'Ok',
         );
       },
     );

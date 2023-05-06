@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:streaming_app/presenter/widgets/text_form_field_widget.dart';
+import 'package:validatorless/validatorless.dart';
 
-class TextDialog extends StatelessWidget {
+class TextDialog extends StatefulWidget {
+  final TextEditingController controller;
   final IconData icon;
   final Color iconColor;
   final String description;
@@ -10,6 +12,7 @@ class TextDialog extends StatelessWidget {
   final void Function() onOkButton;
   const TextDialog({
     Key? key,
+    required this.controller,
     required this.icon,
     this.iconColor = Colors.white,
     required this.description,
@@ -18,6 +21,12 @@ class TextDialog extends StatelessWidget {
     required this.onOkButton,
   }) : super(key: key);
 
+  @override
+  State<TextDialog> createState() => _TextDialogState();
+}
+
+class _TextDialogState extends State<TextDialog> {
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -43,13 +52,13 @@ class TextDialog extends StatelessWidget {
             child: Column(
               children: [
                 Icon(
-                  icon,
+                  widget.icon,
                   size: 40,
-                  color: iconColor,
+                  color: widget.iconColor,
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  description,
+                  widget.description,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 18,
@@ -58,10 +67,18 @@ class TextDialog extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                TextFormFieldWidget(
-                  label: 'E-mail',
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (_) {},
+                Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  key: formKey,
+                  child: TextFormFieldWidget(
+                    controller: widget.controller,
+                    label: 'E-mail',
+                    keyboardType: TextInputType.emailAddress,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('Campo não preenchido'),
+                      Validatorless.email('E-mail inválido'),
+                    ]),
+                  ),
                 ),
               ],
             ),
@@ -86,7 +103,7 @@ class TextDialog extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    cancelButtonText,
+                    widget.cancelButtonText,
                     style: const TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
@@ -98,7 +115,10 @@ class TextDialog extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    onOkButton();
+                    if (!formKey.currentState!.validate()) {
+                      return;
+                    }
+                    widget.onOkButton();
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
@@ -116,7 +136,7 @@ class TextDialog extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    okButtonText,
+                    widget.okButtonText,
                     style: const TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,

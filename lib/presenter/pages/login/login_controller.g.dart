@@ -41,16 +41,19 @@ mixin _$LoginController on LoginControllerBase, Store {
     });
   }
 
-  late final _$resetPasswordAsyncAction =
-      AsyncAction('LoginControllerBase.resetPassword', context: context);
-
-  @override
-  Future<void> resetPassword(BuildContext context) {
-    return _$resetPasswordAsyncAction.run(() => super.resetPassword(context));
-  }
-
   late final _$LoginControllerBaseActionController =
       ActionController(name: 'LoginControllerBase', context: context);
+
+  @override
+  void resetPassword(BuildContext context) {
+    final _$actionInfo = _$LoginControllerBaseActionController.startAction(
+        name: 'LoginControllerBase.resetPassword');
+    try {
+      return super.resetPassword(context);
+    } finally {
+      _$LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void onChangeObscureText(bool value) {
