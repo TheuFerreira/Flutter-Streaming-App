@@ -118,8 +118,8 @@ class _TextDialogState extends State<TextDialog> {
                     if (!formKey.currentState!.validate()) {
                       return;
                     }
-                    widget.onOkButton();
                     Navigator.of(context).pop();
+                    widget.onOkButton();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF684DB5),

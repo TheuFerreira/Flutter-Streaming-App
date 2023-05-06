@@ -69,6 +69,8 @@ abstract class LoginControllerBase with Store {
 
   _sendEmailResetPassword(BuildContext context) {
     final email = emailController.text;
+    LoadingDialog.show(context);
+
     _resetPasswordCase(email)
         .then((value) => _emailSent(context))
         .catchError((onError) => _emailNotFound(context))
@@ -78,6 +80,7 @@ abstract class LoginControllerBase with Store {
   }
 
   _emailSent(BuildContext context) {
+    LoadingDialog.close(context);
     showDialog(
       context: context,
       builder: (builder) {
@@ -92,6 +95,7 @@ abstract class LoginControllerBase with Store {
   }
 
   _emailNotFound(BuildContext context) {
+    LoadingDialog.close(context);
     showDialog(
       context: context,
       builder: (_) {

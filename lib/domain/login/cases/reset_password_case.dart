@@ -6,6 +6,8 @@ class ResetPasswordCase {
       throw EmailInvalidException();
     }
 
+    await Future.delayed(const Duration(seconds: 2));
+
     if (email != 'admin@gmail.com') {
       throw EmailNotRegisteredException();
     }
