@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:streaming_app/domain/login/cases/get_remember_me_case.dart';
 import 'package:streaming_app/domain/login/cases/reset_password_case.dart';
+import 'package:streaming_app/domain/login/cases/set_remember_me_case.dart';
 import 'package:streaming_app/domain/login/cases/sign_in_case.dart';
 import 'package:streaming_app/domain/login/errors/login_errors.dart';
+import 'package:streaming_app/domain/login/errors/remember_errors.dart';
+import 'package:streaming_app/domain/login/requests/remember_me_request.dart';
 import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/info_dialog.dart';
@@ -29,6 +33,21 @@ abstract class LoginControllerBase with Store {
 
   final _signInCase = SignInCase();
   final _resetPasswordCase = ResetPasswordCase();
+  final _setRememberMeCase = SetRememberMeCase();
+  final _getRememberMeCase = GetRememberMeCase();
+
+  @action
+  void load() {
+    _getRememberMeCase().then((value) {
+      userController.text = value.user;
+      passwordController.text = value.password;
+      rememberMe = true;
+    }).catchError((onError) {
+      userController.text = '';
+      passwordController.text = '';
+      rememberMe = false;
+    }, test: (err) => err is RememberException);
+  }
 
   @action
   void resetPassword(BuildContext context) {
@@ -54,7 +73,7 @@ abstract class LoginControllerBase with Store {
         .then((value) => _emailSent(context))
         .catchError((onError) => _emailNotFound(context))
         .whenComplete(() {
-      emailController.text = '';
+      emailController.clear();
     });
   }
 
@@ -125,11 +144,18 @@ abstract class LoginControllerBase with Store {
   }
 
   _signInSuccess(BuildContext context, dynamic value) {
-    LoadingDialog.close(context);
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (builder) => const MainPage()),
+    final request = RememberMeRequest(
+      user: userController.text,
+      password: userController.text,
+      rememberMe: rememberMe,
     );
+    _setRememberMeCase(request).whenComplete(() {
+      LoadingDialog.close(context);
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (builder) => const MainPage()),
+      );
+    });
   }
 
   _emailNotRegisteredError(BuildContext context, dynamic err) {
@@ -179,7 +205,6 @@ abstract class LoginControllerBase with Store {
     );
   }
 
-  @action
   void register(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (builder) => const RegisterPage()),

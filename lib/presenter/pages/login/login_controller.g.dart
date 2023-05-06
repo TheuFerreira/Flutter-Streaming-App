@@ -45,6 +45,17 @@ mixin _$LoginController on LoginControllerBase, Store {
       ActionController(name: 'LoginControllerBase', context: context);
 
   @override
+  void load() {
+    final _$actionInfo = _$LoginControllerBaseActionController.startAction(
+        name: 'LoginControllerBase.load');
+    try {
+      return super.load();
+    } finally {
+      _$LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void resetPassword(BuildContext context) {
     final _$actionInfo = _$LoginControllerBaseActionController.startAction(
         name: 'LoginControllerBase.resetPassword');
@@ -83,17 +94,6 @@ mixin _$LoginController on LoginControllerBase, Store {
         name: 'LoginControllerBase.signIn');
     try {
       return super.signIn(context);
-    } finally {
-      _$LoginControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void register(BuildContext context) {
-    final _$actionInfo = _$LoginControllerBaseActionController.startAction(
-        name: 'LoginControllerBase.register');
-    try {
-      return super.register(context);
     } finally {
       _$LoginControllerBaseActionController.endAction(_$actionInfo);
     }

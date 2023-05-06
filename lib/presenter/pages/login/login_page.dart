@@ -19,6 +19,13 @@ class _LoginPageState extends State<LoginPage> {
   final controller = LoginController();
 
   @override
+  void initState() {
+    super.initState();
+
+    controller.load();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
