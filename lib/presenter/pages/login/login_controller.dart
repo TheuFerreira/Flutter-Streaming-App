@@ -11,6 +11,7 @@ import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/info_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/text_dialog.dart';
+import 'package:streaming_app/presenter/pages/login/login_controller.i18n.dart';
 import 'package:streaming_app/presenter/pages/main_page/main_page.dart';
 import 'package:streaming_app/presenter/pages/register/register_page.dart';
 
@@ -57,10 +58,9 @@ abstract class LoginControllerBase with Store {
         return TextDialog(
           controller: emailController,
           icon: Icons.email,
-          description:
-              'Confirme seu e-mail para o\nenvio da redefinição de senha:',
-          cancelButtonText: 'Sair',
-          okButtonText: 'Enviar',
+          description: confirmEmail.i18n,
+          cancelButtonText: exit.i18n,
+          okButtonText: sent.i18n,
           onOkButton: () => _sendEmailResetPassword(context),
         );
       },
@@ -84,11 +84,10 @@ abstract class LoginControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const InfoDialog(
+        return InfoDialog(
           icon: Icons.email,
-          description:
-              'Um link para redefinição\nde senha foi enviado para\nseu e-mail!',
-          buttonText: 'Ok',
+          description: emailResetPassword.i18n,
+          buttonText: ok.i18n,
         );
       },
     );
@@ -99,10 +98,10 @@ abstract class LoginControllerBase with Store {
     showDialog(
       context: context,
       builder: (_) {
-        return const InfoDialog(
+        return InfoDialog(
           icon: Icons.email,
-          description: 'E-mail incorreto, por favor\ndigite novamente:',
-          buttonText: 'Ok',
+          description: invalidEmail.i18n,
+          buttonText: ok.i18n,
         );
       },
     );
@@ -168,10 +167,10 @@ abstract class LoginControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const InfoDialog(
+        return InfoDialog(
           icon: Icons.email,
-          description: 'Você ainda não\nconfirmou seu e-mail!',
-          buttonText: 'Ok',
+          description: notConfirmedEmail.i18n,
+          buttonText: ok.i18n,
         );
       },
     );
@@ -183,11 +182,11 @@ abstract class LoginControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const InfoDialog(
+        return InfoDialog(
           icon: Icons.warning,
           iconColor: Colors.yellow,
-          description: 'Usuário ou senha\nincorretos!',
-          buttonText: 'Ok',
+          description: invalidUserOrPassword.i18n,
+          buttonText: ok.i18n,
         );
       },
     );
@@ -199,11 +198,11 @@ abstract class LoginControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const InfoDialog(
+        return InfoDialog(
           icon: Icons.error,
           iconColor: Colors.red,
-          description: 'Ocorreu algum erro interno,\ntente novamente!',
-          buttonText: 'Tentar novamente',
+          description: internalError.i18n,
+          buttonText: tryAgain.i18n,
         );
       },
     );
