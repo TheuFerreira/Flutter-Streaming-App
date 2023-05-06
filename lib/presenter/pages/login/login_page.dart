@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:streaming_app/presenter/pages/login/login_controller.dart';
+import 'package:streaming_app/presenter/pages/login/login_page.i18n.dart';
 import 'package:streaming_app/presenter/widgets/button_gradient_widget.dart';
 import 'package:streaming_app/presenter/widgets/checkbox_text_widget.dart';
 import 'package:streaming_app/presenter/widgets/password_form_field_widget.dart';
@@ -57,11 +58,11 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         const SizedBox(height: 50),
                         Text(
-                          'Curta a viagem :)',
+                          enjoyJourney.i18n,
                           style: Theme.of(context).textTheme.displayMedium,
                         ),
                         Text(
-                          'SpaceFilms',
+                          spaceFilms.i18n,
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
                       ],
@@ -83,21 +84,20 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 TextFormFieldWidget(
                                   controller: controller.userController,
-                                  label: 'Usuário',
+                                  label: user.i18n,
                                   validator: Validatorless.multiple([
-                                    Validatorless.required(
-                                        'Campo não preenchido'),
+                                    Validatorless.required(fieldRequired.i18n),
                                   ]),
                                 ),
                                 const SizedBox(height: 24),
                                 Observer(builder: (context) {
                                   return PasswordFormFieldWidget(
                                     controller: controller.passwordController,
-                                    label: 'Senha',
+                                    label: password.i18n,
                                     obscureText: controller.obscureText,
                                     validator: Validatorless.multiple([
                                       Validatorless.required(
-                                          'Campo não preenchido'),
+                                          fieldRequired.i18n),
                                     ]),
                                     onChangeObscureText:
                                         controller.onChangeObscureText,
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                           RichText(
                             textAlign: TextAlign.end,
                             text: TextSpan(
-                              text: 'Esqueceu sua senha?',
+                              text: forgotPassword.i18n,
                               recognizer: TapGestureRecognizer()
                                 ..onTap =
                                     () => controller.resetPassword(context),
@@ -118,10 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(width: 16),
                           Observer(builder: (context) {
-                            final rememberMe = controller.rememberMe;
                             return CheckboxTextWidget(
-                              text: 'Lembrar de mim',
-                              active: rememberMe,
+                              text: rememberMe.i18n,
+                              active: controller.rememberMe,
                               onChanged: controller.setRememberMe,
                             );
                           }),
@@ -135,13 +134,13 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                             onPressed: () => controller.signIn(context),
-                            child: const Text('Entrar'),
+                            child: Text(login.i18n),
                           ),
                           const SizedBox(height: 8),
                           RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
-                              text: 'Não possui uma conta? ',
+                              text: notHaveAccount.i18n,
                               style: const TextStyle(
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w200,
@@ -149,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: 'Cadastre-se',
+                                  text: register.i18n,
                                   style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w700,
