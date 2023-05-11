@@ -8,6 +8,7 @@ import 'package:streaming_app/domain/login/errors/login_errors.dart';
 import 'package:streaming_app/domain/login/errors/remember_errors.dart';
 import 'package:streaming_app/domain/login/requests/remember_me_request.dart';
 import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
+import 'package:streaming_app/presenter/dialogs/error_dialog.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/info_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/text_dialog.dart';
@@ -198,9 +199,7 @@ abstract class LoginControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return InfoDialog(
-          icon: Icons.error,
-          iconColor: Colors.red,
+        return ErrorDialog(
           description: internalError.i18n,
           buttonText: tryAgain.i18n,
         );
