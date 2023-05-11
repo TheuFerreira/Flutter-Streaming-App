@@ -42,8 +42,8 @@ extension Localization on String {
       'pt_br': 'Esqueceu sua senha?',
     },
     notHaveAccount: {
-      'en_us': 'Don\'t have account?',
-      'pt_br': 'Não possui uma conta?',
+      'en_us': 'Don\'t have account? ',
+      'pt_br': 'Não possui uma conta? ',
     },
     enjoyJourney: {
       'en_us': 'Enjoy the journey :)',
