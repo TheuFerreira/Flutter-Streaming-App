@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streaming_app/presenter/pages/login/dialogs/info_dialog.dart';
+import 'package:streaming_app/presenter/dialogs/info_dialog.dart';
 
 class ErrorDialog extends InfoDialog {
   const ErrorDialog({
