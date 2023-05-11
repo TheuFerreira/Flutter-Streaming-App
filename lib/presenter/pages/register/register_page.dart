@@ -18,8 +18,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final controller = RegisterController();
-  final passwordController = TextEditingController();
-  final repeatPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 16),
                 TextFormFieldWidget(
                   label: 'Nome de usuário',
+                  controller: controller.userController,
                   validator: Validatorless.multiple([
                     Validatorless.required('Campo não preenchido'),
                   ]),
@@ -71,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Observer(builder: (context) {
                   return PasswordFormFieldWidget(
                     label: 'Senha',
-                    controller: passwordController,
+                    controller: controller.passwordController,
                     obscureText: controller.hidePassword,
                     onChanged: controller.onPasswordChange,
                     validator: Validatorless.multiple([
@@ -114,12 +113,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 Observer(builder: (context) {
                   return PasswordFormFieldWidget(
                     label: 'Repita sua senha',
-                    controller: repeatPasswordController,
+                    controller: controller.repeatPasswordController,
                     obscureText: controller.hideRepeatPassword,
                     validator: Validatorless.multiple([
                       Validatorless.required('Campo não preenchido'),
-                      Validatorless.compare(
-                          passwordController, 'As senhas não coincidem'),
+                      Validatorless.compare(controller.repeatPasswordController,
+                          'As senhas não coincidem'),
                     ]),
                     onChangeObscureText: controller.changeHideRepeatPassword,
                   );
@@ -127,6 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 16),
                 TextFormFieldWidget(
                   label: 'E-mail',
+                  controller: controller.emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: Validatorless.multiple([
                     Validatorless.required('Campo não preenchido'),
@@ -150,9 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Color(0xFF684DB5),
                     ],
                   ),
-                  onPressed: () {
-                    controller.formKey.currentState!.validate();
-                  },
+                  onPressed: () => controller.register(context),
                   child: const Text('Entrar'),
                 ),
               ],
