@@ -9,6 +9,7 @@ import 'package:streaming_app/presenter/dialogs/error_dialog.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
 import 'package:streaming_app/presenter/pages/main_page/main_page.dart';
 import 'package:streaming_app/presenter/pages/register/dialogs/question_dialog.dart';
+import 'package:streaming_app/presenter/pages/register/register_controller.i18n.dart';
 import 'package:streaming_app/presenter/utils/regex.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -46,11 +47,11 @@ abstract class RegisterControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const QuestionDialog(
+        return QuestionDialog(
           icon: Icons.question_mark,
-          description: 'Deseja cancelar o processo\nde cadastro?',
-          cancelButtonText: 'Não',
-          okButtonText: 'Sim',
+          description: cancelRegister.i18n,
+          cancelButtonText: no.i18n,
+          okButtonText: yes.i18n,
         );
       },
     ).then((value) {
@@ -70,26 +71,25 @@ abstract class RegisterControllerBase with Store {
   @action
   void onPasswordChange(String value) {
     strength = 0;
-    String? result = Validatorless.required('Campo não preenchido').call(value);
+    String? result = Validatorless.required(fieldRequired.i18n).call(value);
     if (result == null || result.isEmpty) {
       strength++;
     } else {
       return;
     }
 
-    result = Validatorless.min(8, 'Pelo menos 8 caracteres').call(value);
+    result = Validatorless.min(8, minChars.i18n).call(value);
     if (result == null || result.isEmpty) {
       strength++;
     }
 
-    result = Validatorless.regex(
-            regSpecialCharacter, 'Pelo menos 1 caractere especial')
+    result = Validatorless.regex(regSpecialCharacter, specialCharacter.i18n)
         .call(value);
     if (result == null || result.isEmpty) {
       strength++;
     }
 
-    result = Validatorless.max(16, 'Máximo de 16 caracteres').call(value);
+    result = Validatorless.max(16, maxChars.i18n).call(value);
     if (result == null || result.isEmpty) {
       strength++;
     }
@@ -150,8 +150,8 @@ abstract class RegisterControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const ErrorDialog(
-          description: 'Escolha outro usuário',
+        return ErrorDialog(
+          description: chooseAnotherUser.i18n,
         );
       },
     );
@@ -163,8 +163,8 @@ abstract class RegisterControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const ErrorDialog(
-          description: 'Ocorreu um problema desconhecido',
+        return ErrorDialog(
+          description: unknownError.i18n,
         );
       },
     );
@@ -174,8 +174,8 @@ abstract class RegisterControllerBase with Store {
     showDialog(
       context: context,
       builder: (builder) {
-        return const ErrorDialog(
-          description: 'Escolha outro E-mail',
+        return ErrorDialog(
+          description: chooseAnotherEmail.i18n,
         );
       },
     );
