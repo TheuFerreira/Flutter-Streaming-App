@@ -1,6 +1,7 @@
 import 'package:i18n_extension/i18n_extension.dart';
 
 const user = 'user';
+const typeHere = 'typeHere';
 const password = 'password';
 const register = 'register';
 const login = 'login';
@@ -16,6 +17,10 @@ extension Localization on String {
     user: {
       'en_us': 'User',
       'pt_br': 'Usuário',
+    },
+    typeHere: {
+      'en_us': 'Type here',
+      'pt_br': 'Digite aqui',
     },
     password: {
       'en_us': 'Password',

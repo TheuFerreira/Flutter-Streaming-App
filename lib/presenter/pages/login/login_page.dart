@@ -85,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                                 TextFormFieldWidget(
                                   controller: controller.userController,
                                   label: user.i18n,
+                                  hintText: typeHere.i18n,
                                   validator: Validatorless.multiple([
                                     Validatorless.required(fieldRequired.i18n),
                                   ]),
@@ -93,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Observer(builder: (context) {
                                   return PasswordFormFieldWidget(
                                     controller: controller.passwordController,
+                                    hintText: typeHere.i18n,
                                     label: password.i18n,
                                     obscureText: controller.obscureText,
                                     validator: Validatorless.multiple([
