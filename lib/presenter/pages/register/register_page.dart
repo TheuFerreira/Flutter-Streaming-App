@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:streaming_app/presenter/pages/register/register_controller.dart';
+import 'package:streaming_app/presenter/pages/register/register_page.i18n.dart';
 import 'package:streaming_app/presenter/utils/regex.dart';
 import 'package:streaming_app/presenter/widgets/button_gradient_widget.dart';
 import 'package:streaming_app/presenter/widgets/checkbox_text_widget.dart';
@@ -41,17 +42,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Curta a viagem :)',
+                  enjoyJourney.i18n,
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
                 Text(
-                  'SpaceFilms',
+                  spaceFilms.i18n,
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  'Criar conta:',
-                  style: TextStyle(
+                Text(
+                  createAccount.i18n,
+                  style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
                     fontSize: 22,
@@ -60,25 +61,27 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 16),
                 TextFormFieldWidget(
-                  label: 'Nome de usuário',
+                  label: userName.i18n,
+                  hintText: typeHere.i18n,
                   controller: controller.userController,
                   validator: Validatorless.multiple([
-                    Validatorless.required('Campo não preenchido'),
+                    Validatorless.required(fieldRequired.i18n),
                   ]),
                 ),
                 const SizedBox(height: 16),
                 Observer(builder: (context) {
                   return PasswordFormFieldWidget(
-                    label: 'Senha',
+                    label: password.i18n,
+                    hintText: typeHere.i18n,
                     controller: controller.passwordController,
                     obscureText: controller.hidePassword,
                     onChanged: controller.onPasswordChange,
                     validator: Validatorless.multiple([
-                      Validatorless.required('Campo não preenchido'),
-                      Validatorless.min(8, 'Pelo menos 8 caracteres'),
-                      Validatorless.regex(regSpecialCharacter,
-                          'Pelo menos 1 caractere especial'),
-                      Validatorless.max(16, 'Máximo de 16 caracteres'),
+                      Validatorless.required(fieldRequired.i18n),
+                      Validatorless.min(8, minChars.i18n),
+                      Validatorless.regex(
+                          regSpecialCharacter, specialCharacter.i18n),
+                      Validatorless.max(16, maxChars.i18n),
                     ]),
                     onChangeObscureText: controller.changeHidePassword,
                   );
@@ -91,18 +94,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: PasswordStrengthWidget(
                         baseColor: const Color(0xFFB6B6B6),
                         fill: controller.strength,
-                        strengths: const [
+                        strengths: [
                           PasswordStrength(
-                            text: 'Fraca',
-                            color: Color(0xFFFF6262),
+                            text: weak.i18n,
+                            color: const Color(0xFFFF6262),
                           ),
                           PasswordStrength(
-                            text: 'Média',
-                            color: Color(0xFFFFF50D),
+                            text: average.i18n,
+                            color: const Color(0xFFFFF50D),
                           ),
                           PasswordStrength(
-                            text: 'Forte',
-                            color: Color(0xFF43E728),
+                            text: strong.i18n,
+                            color: const Color(0xFF43E728),
                           ),
                         ],
                       ),
@@ -112,30 +115,32 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 16),
                 Observer(builder: (context) {
                   return PasswordFormFieldWidget(
-                    label: 'Repita sua senha',
+                    label: repeatPassword.i18n,
+                    hintText: typeHere.i18n,
                     controller: controller.repeatPasswordController,
                     obscureText: controller.hideRepeatPassword,
                     validator: Validatorless.multiple([
-                      Validatorless.required('Campo não preenchido'),
+                      Validatorless.required(fieldRequired.i18n),
                       Validatorless.compare(controller.repeatPasswordController,
-                          'As senhas não coincidem'),
+                          passwordsNotMatch.i18n),
                     ]),
                     onChangeObscureText: controller.changeHideRepeatPassword,
                   );
                 }),
                 const SizedBox(height: 16),
                 TextFormFieldWidget(
-                  label: 'E-mail',
+                  label: email.i18n,
+                  hintText: typeHere.i18n,
                   controller: controller.emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: Validatorless.multiple([
-                    Validatorless.required('Campo não preenchido'),
-                    Validatorless.email('E-mail inválido'),
+                    Validatorless.required(fieldRequired.i18n),
+                    Validatorless.email(invalidEmail.i18n),
                   ]),
                 ),
                 Observer(builder: (context) {
                   return CheckboxTextWidget(
-                    text: 'Lembrar de mim',
+                    text: rememberMe.i18n,
                     active: controller.rememberMe,
                     onChanged: controller.setRememberMe,
                   );
@@ -151,7 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                   onPressed: () => controller.register(context),
-                  child: const Text('Entrar'),
+                  child: Text(enter.i18n),
                 ),
               ],
             ),
