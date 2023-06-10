@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:streaming_app/presenter/pages/main_page/widgets/bottom_navigation_item_widget.dart';
-import 'package:streaming_app/presenter/pages/main_page/widgets/notification_button_widget.dart';
-import 'package:streaming_app/presenter/pages/main_page/widgets/player_list_widget.dart';
-import 'package:streaming_app/presenter/pages/main_page/widgets/playlist_item_widget.dart';
-import 'package:streaming_app/presenter/pages/main_page/widgets/user_info_widget.dart';
-import 'package:streaming_app/presenter/pages/main_page/widgets/video_item_widget.dart';
+import 'package:streaming_app/presenter/pages/main/widgets/bottom_navigation_item_widget.dart';
+import 'package:streaming_app/presenter/pages/main/widgets/notification_button_widget.dart';
+import 'package:streaming_app/presenter/pages/main/widgets/player_list_widget.dart';
+import 'package:streaming_app/presenter/pages/main/widgets/playlist_item_widget.dart';
+import 'package:streaming_app/presenter/pages/main/widgets/user_info_widget.dart';
+import 'package:streaming_app/presenter/pages/main/widgets/video_item_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -88,6 +88,10 @@ class _MainPageState extends State<MainPage> {
               ),
               PlayerListWidget(
                 title: 'Lançamentos:',
+                showSeeMore: true,
+                onTap: () {
+                  // TODO: Tap See More
+                },
                 childrens: [
                   PlaylistItemWidget(
                     image: Image.asset('assets/temp/02.jpg').image,

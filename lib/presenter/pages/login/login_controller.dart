@@ -13,7 +13,7 @@ import 'package:streaming_app/presenter/dialogs/info_dialog.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/dialogs/text_dialog.dart';
 import 'package:streaming_app/presenter/pages/login/login_controller.i18n.dart';
-import 'package:streaming_app/presenter/pages/main_page/main_page.dart';
+import 'package:streaming_app/presenter/pages/main/main_page.dart';
 import 'package:streaming_app/presenter/pages/register/register_page.dart';
 
 part 'login_controller.g.dart';

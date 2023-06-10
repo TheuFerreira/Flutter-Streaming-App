@@ -7,7 +7,7 @@ import 'package:streaming_app/domain/register/errors/register_errors.dart';
 import 'package:streaming_app/domain/register/requests/register_request.dart';
 import 'package:streaming_app/presenter/dialogs/error_dialog.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
-import 'package:streaming_app/presenter/pages/main_page/main_page.dart';
+import 'package:streaming_app/presenter/pages/main/main_page.dart';
 import 'package:streaming_app/presenter/pages/register/dialogs/question_dialog.dart';
 import 'package:streaming_app/presenter/pages/register/register_controller.i18n.dart';
 import 'package:streaming_app/presenter/utils/regex.dart';
