@@ -38,6 +38,8 @@ class Fetch {
 
           if (response.statusCode == 400) {
             throw FetchBadRequestException();
+          } else if (response.statusCode == 404) {
+            throw FetchNotFoundException();
           }
 
           throw FetchUnknownException();
