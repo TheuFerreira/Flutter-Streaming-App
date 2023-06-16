@@ -19,7 +19,7 @@ class RegisterController = RegisterControllerBase with _$RegisterController;
 
 abstract class RegisterControllerBase with Store {
   final formKey = GlobalKey<FormState>();
-  final userController = TextEditingController();
+  final nameController = TextEditingController();
   final passwordController = TextEditingController();
   final repeatPasswordController = TextEditingController();
   final emailController = TextEditingController();
@@ -113,7 +113,7 @@ abstract class RegisterControllerBase with Store {
     LoadingDialog.show(context);
 
     final registerRequest = RegisterRequest(
-      user: userController.text,
+      name: nameController.text,
       password: passwordController.text,
       repeatPassword: repeatPasswordController.text,
       email: emailController.text,
@@ -121,8 +121,6 @@ abstract class RegisterControllerBase with Store {
 
     _registerCase(registerRequest)
         .then((_) => _successRegister(context))
-        .catchError((_) => _invalidUser(context),
-            test: (e) => e is RegisterInvalidUserException)
         .catchError((_) => _invalidEmail(context),
             test: (e) => e is RegisterInvalidEmailException)
         .catchError((_) => _genericError(context));
@@ -132,7 +130,7 @@ abstract class RegisterControllerBase with Store {
     LoadingDialog.close(context);
 
     final rememberMeRequest = RememberMeRequest(
-      user: userController.text,
+      user: nameController.text,
       password: passwordController.text,
       rememberMe: rememberMe,
     );
@@ -142,19 +140,6 @@ abstract class RegisterControllerBase with Store {
         builder: (builder) => const MainPage(),
       ));
     });
-  }
-
-  void _invalidUser(BuildContext context) {
-    LoadingDialog.close(context);
-
-    showDialog(
-      context: context,
-      builder: (builder) {
-        return ErrorDialog(
-          description: chooseAnotherUser.i18n,
-        );
-      },
-    );
   }
 
   void _genericError(BuildContext context) {
@@ -171,6 +156,8 @@ abstract class RegisterControllerBase with Store {
   }
 
   void _invalidEmail(BuildContext context) {
+    LoadingDialog.close(context);
+
     showDialog(
       context: context,
       builder: (builder) {

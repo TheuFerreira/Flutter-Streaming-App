@@ -3,7 +3,7 @@ import 'package:i18n_extension/i18n_extension.dart';
 const enjoyJourney = 'enjoyJourney';
 const spaceFilms = 'SpaceFilms';
 const createAccount = 'createAccount';
-const userName = 'userName';
+const name = 'name';
 const typeHere = 'typeHere';
 const fieldRequired = 'fieldRequired';
 const password = 'password';
@@ -34,9 +34,9 @@ extension Localization on String {
       'en_us': 'Create account:',
       'pt_br': 'Criar conta:',
     },
-    userName: {
-      'en_us': 'Username',
-      'pt_br': 'Nome de usuário',
+    name: {
+      'en_us': 'Name',
+      'pt_br': 'Nome',
     },
     typeHere: {
       'en_us': 'Type here',

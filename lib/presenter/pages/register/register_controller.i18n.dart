@@ -7,7 +7,6 @@ const fieldRequired = 'fieldRequired';
 const minChars = 'minChars';
 const specialCharacter = 'specialCharacter';
 const maxChars = 'maxChars';
-const chooseAnotherUser = 'chooseAnotherUser';
 const unknownError = 'unknownError';
 const chooseAnotherEmail = 'chooseAnotherEmail';
 
@@ -40,10 +39,6 @@ extension Localization on String {
     maxChars: {
       'en_us': 'Maximum 16 characters',
       'pt_br': 'Máximo de 16 caracteres',
-    },
-    chooseAnotherUser: {
-      'en_us': 'Choose another user',
-      'pt_br': 'Escolha outro usuário',
     },
     unknownError: {
       'en_us': 'An unknown problem occurred',

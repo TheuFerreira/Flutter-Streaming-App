@@ -61,9 +61,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 16),
                 TextFormFieldWidget(
-                  label: userName.i18n,
+                  label: name.i18n,
                   hintText: typeHere.i18n,
-                  controller: controller.userController,
+                  controller: controller.nameController,
                   validator: Validatorless.multiple([
                     Validatorless.required(fieldRequired.i18n),
                   ]),
