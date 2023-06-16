@@ -1,6 +1,6 @@
 import 'package:i18n_extension/i18n_extension.dart';
 
-const user = 'user';
+const email = 'email';
 const typeHere = 'typeHere';
 const password = 'password';
 const register = 'register';
@@ -11,12 +11,13 @@ const forgotPassword = 'forgotPassword';
 const notHaveAccount = 'notHaveAccount';
 const enjoyJourney = 'enjoyJourney';
 const spaceFilms = 'SpaceFilms';
+const invalidEmail = 'invalidEmail';
 
 extension Localization on String {
   static const _t = Translations.from('en_us', {
-    user: {
-      'en_us': 'User',
-      'pt_br': 'Usuário',
+    email: {
+      'en_us': 'Email',
+      'pt_br': 'E-mail',
     },
     typeHere: {
       'en_us': 'Type here',
@@ -57,6 +58,10 @@ extension Localization on String {
     spaceFilms: {
       'en_us': 'SpaceFilms',
       'pt_br': 'SpaceFilms',
+    },
+    invalidEmail: {
+      'en_us': 'Invalid email',
+      'pt_br': 'E-mail inválido',
     },
   });
 

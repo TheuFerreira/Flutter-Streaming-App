@@ -1,5 +1,11 @@
 class SignInResponse {
-  final int userId;
+  final String accessToken;
+  final String refreshToken;
+  final DateTime expiresAt;
 
-  const SignInResponse({required this.userId});
+  const SignInResponse({
+    required this.accessToken,
+    required this.refreshToken,
+    required this.expiresAt,
+  });
 }

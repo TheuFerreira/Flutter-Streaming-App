@@ -83,11 +83,12 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 TextFormFieldWidget(
-                                  controller: controller.userController,
-                                  label: user.i18n,
+                                  controller: controller.emailController,
+                                  label: email.i18n,
                                   hintText: typeHere.i18n,
                                   validator: Validatorless.multiple([
                                     Validatorless.required(fieldRequired.i18n),
+                                    Validatorless.email(invalidEmail.i18n),
                                   ]),
                                 ),
                                 const SizedBox(height: 24),

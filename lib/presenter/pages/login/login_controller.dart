@@ -23,9 +23,8 @@ class LoginController = LoginControllerBase with _$LoginController;
 abstract class LoginControllerBase with Store {
   final formKey = GlobalKey<FormState>();
 
-  final userController = TextEditingController();
-  final passwordController = TextEditingController();
   final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @observable
   bool rememberMe = false;
@@ -41,11 +40,11 @@ abstract class LoginControllerBase with Store {
   @action
   void load() {
     _getRememberMeCase().then((value) {
-      userController.text = value.user;
+      emailController.text = value.user;
       passwordController.text = value.password;
       rememberMe = true;
     }).catchError((onError) {
-      userController.text = '';
+      emailController.text = '';
       passwordController.text = '';
       rememberMe = false;
     }, test: (err) => err is RememberException);
@@ -128,8 +127,8 @@ abstract class LoginControllerBase with Store {
     LoadingDialog.show(context);
 
     final request = SignInRequest(
-      user: userController.text,
-      password: userController.text,
+      email: emailController.text,
+      password: passwordController.text,
     );
 
     _signInCase(request)
@@ -149,8 +148,8 @@ abstract class LoginControllerBase with Store {
 
   _signInSuccess(BuildContext context, dynamic value) {
     final request = RememberMeRequest(
-      user: userController.text,
-      password: userController.text,
+      user: emailController.text,
+      password: passwordController.text,
       rememberMe: rememberMe,
     );
     _setRememberMeCase(request).whenComplete(() {

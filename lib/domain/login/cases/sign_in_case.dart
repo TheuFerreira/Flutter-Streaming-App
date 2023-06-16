@@ -1,25 +1,45 @@
+import 'dart:convert';
+
+import 'package:streaming_app/core/fetch/fetch.dart';
+import 'package:streaming_app/core/fetch/fetch_errors.dart';
 import 'package:streaming_app/domain/login/errors/login_errors.dart';
 import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
 import 'package:streaming_app/domain/login/responses/sign_in_response.dart';
 
 class SignInCase {
+  final _fetch = Fetch();
+
   Future<SignInResponse> call(SignInRequest request) async {
-    final user = request.user;
+    final email = request.email;
     final password = request.password;
 
-    if (user.isEmpty || password.isEmpty) {
+    if (email.isEmpty || password.isEmpty) {
       throw LoginInvalidException();
     }
 
-    await Future.delayed(const Duration(seconds: 3));
+    final data = {
+      'email': email,
+      'password': password,
+    };
 
-    if (user == 'error') {
-      throw Exception();
-    } else if (user != 'admin') {
+    final json = jsonEncode(data);
+    try {
+      final response = await _fetch.post<Map>(path: '/User/SignIn', data: json);
+
+      final mapResponse = response.data;
+      final expiresAt = mapResponse['expires_at'];
+      final inDate = DateTime.parse(expiresAt);
+
+      final signInResponse = SignInResponse(
+        accessToken: mapResponse['access_token'],
+        refreshToken: mapResponse['refresh_token'],
+        expiresAt: inDate,
+      );
+      return signInResponse;
+    } on FetchNotFoundException {
+      throw LoginInvalidException();
+    } on FetchBadRequestException {
       throw LoginEmailNotRegisteredException();
     }
-
-    const response = SignInResponse(userId: 1);
-    return response;
   }
 }
