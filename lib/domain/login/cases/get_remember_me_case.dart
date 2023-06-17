@@ -1,18 +1,19 @@
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streaming_app/core/preferences/preferences.dart';
 import 'package:streaming_app/domain/login/errors/remember_errors.dart';
 import 'package:streaming_app/domain/login/responses/user_login_response.dart';
 
 class GetRememberMeCase {
+  final _preferences = Preferences();
+
   Future<UserLoginResponse> call() async {
-    final prefs = await SharedPreferences.getInstance();
-    final hasUserLogin = prefs.containsKey('user_login');
+    final hasUserLogin = await _preferences.contains('user_login');
     if (!hasUserLogin) {
       throw RememberNotFoundException();
     }
 
-    final json = prefs.getString('user_login')!;
+    final json = await _preferences.get<String>('user_login');
     final map = jsonDecode(json);
 
     final user = map['user'];
