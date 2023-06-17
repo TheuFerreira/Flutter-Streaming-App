@@ -22,7 +22,7 @@ class UserService {
     return model;
   }
 
-  Future<TokenModel> register(
+  Future<void> register(
     String name,
     String email,
     String password,
@@ -34,12 +34,9 @@ class UserService {
     };
 
     final json = jsonEncode(data);
-    final response = await _fetch.post<Map<String, dynamic>>(
+    await _fetch.post(
       path: '/User/Register',
       data: json,
     );
-
-    final model = TokenModel.fromMap(response.data);
-    return model;
   }
 }
