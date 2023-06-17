@@ -6,7 +6,7 @@ const sent = 'sent';
 const emailResetPassword = 'emailResetPassword';
 const invalidEmail = 'invalidEmail';
 const notConfirmedEmail = 'notConfirmedEmail';
-const invalidUserOrPassword = 'invalidUserOrPassword';
+const invalidEmailOrPassword = 'invalidEmailOrPassword';
 const ok = 'ok';
 const internalError = 'internalError';
 const tryAgain = 'tryAgain';
@@ -38,9 +38,9 @@ extension Localization on String {
       'en_us': 'You haven\'t confirmed\nyour email yet!',
       'pt_br': 'Você ainda não\nconfirmou seu e-mail!',
     },
-    invalidUserOrPassword: {
-      'en_us': 'Incorrect username\nor password!',
-      'pt_br': 'Usuário ou senha\nincorretos!',
+    invalidEmailOrPassword: {
+      'en_us': 'Incorrect email\nor password!',
+      'pt_br': 'E-mail ou senha\nincorretos!',
     },
     ok: {
       'en_us': 'Ok',

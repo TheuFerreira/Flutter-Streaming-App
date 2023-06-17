@@ -185,7 +185,7 @@ abstract class LoginControllerBase with Store {
         return InfoDialog(
           icon: Icons.warning,
           iconColor: Colors.yellow,
-          description: invalidUserOrPassword.i18n,
+          description: invalidEmailOrPassword.i18n,
           buttonText: ok.i18n,
         );
       },
