@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Preferences {
   Future<bool> save<T>(String key, T value) async {
     final prefs = await SharedPreferences.getInstance();
-    if (T is String) {
+    if (T == String) {
       return prefs.setString(key, value as String);
     }
 
@@ -12,7 +12,7 @@ class Preferences {
 
   Future<dynamic> get<T>(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    if (T is String) {
+    if (T == String) {
       return prefs.getString(key);
     }
 
