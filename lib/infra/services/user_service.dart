@@ -39,4 +39,13 @@ class UserService {
       data: json,
     );
   }
+
+  Future<void> resetPassword(String email) async {
+    final map = {
+      'email': email,
+    };
+
+    final json = jsonEncode(map);
+    await _fetch.post(path: '/User/ResetPassword', data: json);
+  }
 }
