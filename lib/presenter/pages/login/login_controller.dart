@@ -8,6 +8,9 @@ import 'package:streaming_app/domain/login/errors/login_errors.dart';
 import 'package:streaming_app/domain/login/errors/remember_errors.dart';
 import 'package:streaming_app/domain/login/requests/remember_me_request.dart';
 import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
+import 'package:streaming_app/domain/login/responses/sign_in_response.dart';
+import 'package:streaming_app/domain/token/cases/save_token_case.dart';
+import 'package:streaming_app/domain/token/requests/token_request.dart';
 import 'package:streaming_app/presenter/dialogs/error_dialog.dart';
 import 'package:streaming_app/presenter/dialogs/info_dialog.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
@@ -36,6 +39,7 @@ abstract class LoginControllerBase with Store {
   final _resetPasswordCase = ResetPasswordCase();
   final _setRememberMeCase = SetRememberMeCase();
   final _getRememberMeCase = GetRememberMeCase();
+  final _saveTokenCase = SaveTokenCase();
 
   @action
   void load() {
@@ -146,7 +150,18 @@ abstract class LoginControllerBase with Store {
         );
   }
 
-  _signInSuccess(BuildContext context, dynamic value) {
+  _signInSuccess(BuildContext context, SignInResponse value) {
+    final tokenRequest = TokenRequest(
+      accessToken: value.accessToken,
+      refreshToken: value.refreshToken,
+      expiresAt: value.expiresAt,
+    );
+    _saveTokenCase
+        .call(tokenRequest)
+        .then((value) => _saveTokenSuccess(context));
+  }
+
+  _saveTokenSuccess(BuildContext context) {
     final request = RememberMeRequest(
       user: emailController.text,
       password: passwordController.text,
