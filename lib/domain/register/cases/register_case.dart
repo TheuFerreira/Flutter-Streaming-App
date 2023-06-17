@@ -1,42 +1,32 @@
-import 'dart:convert';
-
-import 'package:streaming_app/core/fetch/fetch.dart';
 import 'package:streaming_app/core/fetch/fetch_errors.dart';
 import 'package:streaming_app/domain/register/errors/register_errors.dart';
 import 'package:streaming_app/domain/register/requests/register_request.dart';
 import 'package:streaming_app/domain/register/responses/register_response.dart';
+import 'package:streaming_app/infra/services/user_service.dart';
 
 class RegisterCase {
-  final _fetch = Fetch();
+  final _userService = UserService();
 
   Future<RegisterResponse?> call(RegisterRequest request) async {
     if (request.password != request.repeatPassword) {
       throw RegisterInvalidPasswordException();
     }
 
-    final data = {
-      'name': request.name,
-      'email': request.email,
-      'password': request.password,
-    };
-
-    final json = jsonEncode(data);
     try {
-      final response = await _fetch.post<Map>(
-        path: '/User/Register',
-        data: json,
+      final model = await _userService.register(
+        request.name,
+        request.email,
+        request.password,
       );
 
-      final mapResponse = response.data;
-      final expiresAt = mapResponse['expires_at'];
-      final inDate = DateTime.parse(expiresAt);
-      final res = RegisterResponse(
-        accessToken: mapResponse['access_token'],
-        refreshToken: mapResponse['refresh_token'],
+      final inDate = DateTime.parse(model.expiresAt);
+      final response = RegisterResponse(
+        accessToken: model.accessToken,
+        refreshToken: model.refreshToken,
         expiresAt: inDate,
       );
 
-      return res;
+      return response;
     } on FetchBadRequestException {
       throw RegisterInvalidEmailException();
     }

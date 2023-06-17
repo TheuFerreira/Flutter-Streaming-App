@@ -21,4 +21,25 @@ class UserService {
     final model = TokenModel.fromMap(response.data);
     return model;
   }
+
+  Future<TokenModel> register(
+    String name,
+    String email,
+    String password,
+  ) async {
+    final data = {
+      'name': name,
+      'email': email,
+      'password': password,
+    };
+
+    final json = jsonEncode(data);
+    final response = await _fetch.post<Map<String, dynamic>>(
+      path: '/User/Register',
+      data: json,
+    );
+
+    final model = TokenModel.fromMap(response.data);
+    return model;
+  }
 }
