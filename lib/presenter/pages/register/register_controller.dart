@@ -6,8 +6,9 @@ import 'package:streaming_app/domain/register/cases/register_case.dart';
 import 'package:streaming_app/domain/register/errors/register_errors.dart';
 import 'package:streaming_app/domain/register/requests/register_request.dart';
 import 'package:streaming_app/presenter/dialogs/error_dialog.dart';
+import 'package:streaming_app/presenter/dialogs/info_dialog.dart';
 import 'package:streaming_app/presenter/dialogs/loading_dialog.dart';
-import 'package:streaming_app/presenter/pages/main/main_page.dart';
+import 'package:streaming_app/presenter/pages/login/login_page.dart';
 import 'package:streaming_app/presenter/pages/register/dialogs/question_dialog.dart';
 import 'package:streaming_app/presenter/pages/register/register_controller.i18n.dart';
 import 'package:streaming_app/presenter/utils/regex.dart';
@@ -135,9 +136,23 @@ abstract class RegisterControllerBase with Store {
       rememberMe: rememberMe,
     );
 
-    _setRememberMeCase(rememberMeRequest).then((value) {
+    _setRememberMeCase(rememberMeRequest)
+        .then((_) => _onRememberSuccess(context));
+  }
+
+  _onRememberSuccess(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (builder) {
+        return InfoDialog(
+          icon: Icons.email,
+          buttonText: ok.i18n,
+          description: emailSent.i18n,
+        );
+      },
+    ).then((value) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (builder) => const MainPage(),
+        builder: (builder) => const LoginPage(),
       ));
     });
   }

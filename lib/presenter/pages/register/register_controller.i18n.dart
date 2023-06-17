@@ -9,6 +9,8 @@ const specialCharacter = 'specialCharacter';
 const maxChars = 'maxChars';
 const unknownError = 'unknownError';
 const chooseAnotherEmail = 'chooseAnotherEmail';
+const ok = 'ok';
+const emailSent = 'emailSent';
 
 extension Localization on String {
   static const _t = Translations.from('en_us', {
@@ -48,6 +50,14 @@ extension Localization on String {
       'en_us': 'Choose another email',
       'pt_br': 'Escolha outro E-mail',
     },
+    ok: {
+      'en_us': 'Ok',
+      'pt_br': 'Ok',
+    },
+    emailSent: {
+      'en_us': 'Confirmation email sent',
+      '_pt_br': 'E-mail para confirmação enviado',
+    }
   });
 
   String get i18n => localize(this, _t);
