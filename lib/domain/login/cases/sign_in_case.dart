@@ -1,3 +1,4 @@
+import 'package:injector/injector.dart';
 import 'package:streaming_app/core/fetch/fetch_errors.dart';
 import 'package:streaming_app/domain/login/errors/login_errors.dart';
 import 'package:streaming_app/domain/login/requests/sign_in_request.dart';
@@ -5,7 +6,11 @@ import 'package:streaming_app/domain/login/responses/sign_in_response.dart';
 import 'package:streaming_app/infra/services/user_service.dart';
 
 class SignInCase {
-  final _userService = UserService();
+  late UserService _userService;
+
+  SignInCase() {
+    _userService = Injector.appInstance.get<UserService>();
+  }
 
   Future<SignInResponse> call(SignInRequest request) async {
     final email = request.email;

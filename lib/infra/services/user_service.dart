@@ -1,16 +1,24 @@
 import 'dart:convert';
 
-import 'package:injector/injector.dart';
 import 'package:streaming_app/core/fetch/fetch.dart';
 import 'package:streaming_app/infra/models/token_model.dart';
 
-class UserService {
-  late Fetch _fetch;
+abstract class UserService {
+  Future<TokenModel> signIn(String email, String password);
+  Future<void> register(
+    String name,
+    String email,
+    String password,
+  );
+  Future<void> resetPassword(String email);
+}
 
-  UserService() {
-    _fetch = Injector.appInstance.get<Fetch>();
-  }
+class UserServiceImpl implements UserService {
+  final Fetch _fetch;
 
+  UserServiceImpl(this._fetch);
+
+  @override
   Future<TokenModel> signIn(String email, String password) async {
     final data = {
       'email': email,
@@ -27,6 +35,7 @@ class UserService {
     return model;
   }
 
+  @override
   Future<void> register(
     String name,
     String email,
@@ -45,6 +54,7 @@ class UserService {
     );
   }
 
+  @override
   Future<void> resetPassword(String email) async {
     final map = {
       'email': email,
