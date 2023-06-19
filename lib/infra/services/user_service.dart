@@ -1,10 +1,15 @@
 import 'dart:convert';
 
+import 'package:injector/injector.dart';
 import 'package:streaming_app/core/fetch/fetch.dart';
 import 'package:streaming_app/infra/models/token_model.dart';
 
 class UserService {
-  final _fetch = Fetch();
+  late Fetch _fetch;
+
+  UserService() {
+    _fetch = Injector.appInstance.get<Fetch>();
+  }
 
   Future<TokenModel> signIn(String email, String password) async {
     final data = {

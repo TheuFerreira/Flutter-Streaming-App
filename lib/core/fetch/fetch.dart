@@ -2,15 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:streaming_app/core/fetch/fetch_errors.dart';
 import 'package:streaming_app/core/fetch/fetch_response.dart';
 
-class Fetch {
+abstract class Fetch {
+  Future<FetchResponse<T>> post<T>({required String path, Object? data});
+}
+
+class FetchImpl implements Fetch {
   late Dio _dio;
 
-  Fetch() {
+  FetchImpl(String baseUrl) {
     _dio = Dio(
-      BaseOptions(baseUrl: 'http://192.168.0.162:5028'),
+      BaseOptions(baseUrl: baseUrl),
     );
   }
 
+  @override
   Future<FetchResponse<T>> post<T>({required String path, Object? data}) async {
     try {
       final response = await _dio.post(path, data: data);
