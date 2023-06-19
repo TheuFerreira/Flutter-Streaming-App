@@ -19,7 +19,7 @@ abstract class Fetch {
 class FetchImpl implements Fetch {
   late Dio _dio;
 
-  FetchImpl(String baseUrl) {
+  FetchImpl(String baseUrl, Preferences preferences) {
     _dio = Dio(BaseOptions(baseUrl: baseUrl));
 
     _dio.interceptors.add(
@@ -32,7 +32,6 @@ class FetchImpl implements Fetch {
             return;
           }
 
-          final preferences = Preferences();
           final json = await preferences.get<String>('token');
           final map = jsonDecode(json);
           final tokenModel = TokenModel.fromMap(map);

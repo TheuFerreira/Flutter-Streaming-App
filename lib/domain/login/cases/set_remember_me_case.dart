@@ -1,10 +1,15 @@
 import 'dart:convert';
 
+import 'package:injector/injector.dart';
 import 'package:streaming_app/core/preferences/preferences.dart';
 import 'package:streaming_app/domain/login/requests/remember_me_request.dart';
 
 class SetRememberMeCase {
-  final _preferences = Preferences();
+  late Preferences _preferences;
+
+  SetRememberMeCase() {
+    _preferences = Injector.appInstance.get<Preferences>();
+  }
 
   Future<void> call(RememberMeRequest request) async {
     if (!request.rememberMe) {
