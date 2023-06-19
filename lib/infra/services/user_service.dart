@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:streaming_app/core/fetch/fetch.dart';
 import 'package:streaming_app/infra/models/token_model.dart';
+import 'package:streaming_app/infra/models/user_info_model.dart';
 
 abstract class UserService {
   Future<TokenModel> signIn(String email, String password);
@@ -11,6 +12,7 @@ abstract class UserService {
     String password,
   );
   Future<void> resetPassword(String email);
+  Future<UserInfoModel> getUserInfo();
 }
 
 class UserServiceImpl implements UserService {
@@ -29,6 +31,7 @@ class UserServiceImpl implements UserService {
     final response = await _fetch.post<Map<String, dynamic>>(
       path: '/User/SignIn',
       data: json,
+      headers: {'no_bearer': true},
     );
 
     final model = TokenModel.fromMap(response.data);
@@ -51,6 +54,7 @@ class UserServiceImpl implements UserService {
     await _fetch.post(
       path: '/User/Register',
       data: json,
+      headers: {'no_bearer': true},
     );
   }
 
@@ -61,6 +65,17 @@ class UserServiceImpl implements UserService {
     };
 
     final json = jsonEncode(map);
-    await _fetch.post(path: '/User/ResetPassword', data: json);
+    await _fetch.post(
+      path: '/User/ResetPassword',
+      data: json,
+      headers: {'no_bearer': true},
+    );
+  }
+
+  @override
+  Future<UserInfoModel> getUserInfo() async {
+    final response = await _fetch.get<Map<String, dynamic>>(path: '/User/Info');
+    final model = UserInfoModel.fromMap(response.data);
+    return model;
   }
 }
